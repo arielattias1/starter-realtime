@@ -1,0 +1,92 @@
+<!-- -------------------------------- -->
+<!-- ------- Marker Animation ------- -->
+<!-- -------------------------------- -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Add a default marker</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+<script type="text/javascript" src = "emplacement-des-gares-idf.json"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+  body { margin: 0; padding: 0; }
+  #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+
+.map-overlay {
+  position: absolute;
+  left: 0;
+  padding: 10px;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="map-overlay top">
+  <button style="font-size: 2em" onclick="move()">
+    Show stops of bus route 69
+  </button>
+</div>
+ 
+<script>
+  // api token
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXJpZWxhdHRpYXMxIiwiYSI6ImNremYzbWE1ajJnZjMzMm1teHBuODR1aHcifQ.nJfR4QY2RG31Q_9Q6zgjIg';
+  
+// making map
+var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-71.09609399906834,42.37317022217615],
+      zoom: 13
+  });
+
+  // making marker for bus
+  var marker = new mapboxgl.Marker()
+      .setLngLat([-71.07710513255604,42.37010853786712])
+      .addTo(map);
+
+  const busStops = [
+      [-71.07710513255604,42.37010853786712],
+      [-71.08003779678165,42.37128713072435],
+      [-71.08162976895778,42.371439465862636],
+      [-71.08489841227761, 42.3717218422138],
+      [-71.08723159881971,42.37204756423552],
+      [ -71.08962882312602, 42.3722774263629], 
+      [-71.09313212337608,42.37285232569505],
+      [-71.09609399906834,42.37317022217615], 
+      [-71.10213562851303,42.374017465287785],
+      [-71.10452882950486, 42.37428001501928 ],
+      [ -71.10718219477334, 42.37450455210944],
+      [-71.110709090369, 42.37506728924137], 
+      [ -71.11232553030702,42.37510307654685],
+      [-71.11456741349255,42.37476798221178],
+      [-71.11518324178971, 42.372486233579146], 
+      [-71.1189222979634,42.373431430517044],
+  ];
+
+  let counter  = 0;
+  var walker = function(){
+    if(counter >= busStops.length){
+        return ;
+    };
+    marker.setLngLat(busStops[counter]); 
+    counter++;
+    move();
+};
+
+// timer
+function move(){
+
+    setTimeout(walker, 1000);
+    
+};
+
+
+</script>
+ 
+</body>
+</html>
